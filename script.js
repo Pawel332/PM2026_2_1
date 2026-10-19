@@ -15,20 +15,23 @@
   })
 
   cw1.addEventListener("click", function () {
-    answer.innerHTML = "Loading....";
+    answer.innerHTML = "Processing...";
     setTimeout(function () {
-        const id=lista.value;
-        fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
+      fetch("https://jsonplaceholder.typicode.com/posts", {
+        method: "POST",
+        body: JSON.stringify({
+          title: "Tytuł nieskomplikowany",
+          body: "Treść drogocenna",
+          userId: 1
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      })
         .then(response => response.json())
         .then(post => {
-          answer.innerHTML = `
-            <ul>
-              <li>
-                ID: ${post.id}<br>
-                <b>${post.title}</b> - ${post.body}
-              </li>
-            </ul>
-          `;
+          answer.innerHTML =
+            `Nowy post o ID = ${post.id} oraz treści ${post.body}`;
         })
     }, 2000);
   })
