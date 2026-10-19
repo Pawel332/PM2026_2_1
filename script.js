@@ -17,12 +17,18 @@
   cw1.addEventListener("click", function () {
     answer.innerHTML = "Loading....";
     setTimeout(function () {
-        fetch('https://jsonplaceholder.typicode.com/posts')
+        const id=lista.value;
+        fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
         .then(response => response.json())
-        .then(array => {
-          answer.innerHTML = "<ul>" + array.map(post =>
-            `<li>ID: ${post.id}</br><b>${post.title}</b> - ${post.body}</li>`
-          ).join("") + "</ul>";
+        .then(post => {
+          answer.innerHTML = `
+            <ul>
+              <li>
+                ID: ${post.id}<br>
+                <b>${post.title}</b> - ${post.body}
+              </li>
+            </ul>
+          `;
         })
     }, 2000);
   })
